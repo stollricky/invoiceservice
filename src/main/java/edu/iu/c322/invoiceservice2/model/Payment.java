@@ -10,50 +10,25 @@ import java.util.Objects;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-public class Payment {
+public record Payment(int id, String method, String number, Address billingAddress) {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
-    private BigDecimal amount;
-    private LocalDate date;
-
-    public int getId() {
+    @Override
+    public int id() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
+    @Override
+    public String method() {
+        return method;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Payment payment = (Payment) o;
-        return id == payment.id && Objects.equals(amount, payment.amount) && Objects.equals(date, payment.date);
+    public String number() {
+        return number;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, amount, date);
+    public Address billingAddress() {
+        return billingAddress;
     }
 }
